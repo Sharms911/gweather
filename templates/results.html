@@ -14,9 +14,28 @@ Wind Speed: {{ wind_speed }} m/s
 Weather Forecast for {{ location }}, {{ country }}
 </body>
 <br>
-The time/date right now is {{ date }}
+The time/date right now is {{ today_date }}
 
 <br>
-the temperature tomorrow is {{ tomorrow_weather }}
+
+tomorrows date is {{ ttp1 }}
+
+<br>
+
+the day after tomorrows date is {{ ttp2 }}
+
+
+<br>
+
+The next day is {{ ttp3 }}
+
+<br>
+
+the next day is {{ ttp4 }}
+
+Average Temperature: {{ temp_info.avg_temp }}°C,
+Min Temperature: {{ temp_info.temp_min }}°C,
+Max Temperature: {{ temp_info.temp_max }}°C
+</html>
 </html>
 

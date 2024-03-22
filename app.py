@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
@@ -32,11 +32,47 @@ def results():
     wind_speed = first_weather_dict.get("wind", {}).get("speed")
     icon = first_weather_dict.get("weather", [{}])[0].get("icon")
 
+    today_date = datetime.now().date()
 
 
-    return render_template('results.html', tomorrow_weather=tomorrow_weather, description=description, location=location,
+    #today plus one temp
+    datetodayplusone = today_date + timedelta(days=1)
+
+    temptodayplusone = [forecast['main']['temp'] for forecast in response.get("list", [])
+                        if datetime.fromtimestamp(forecast['dt']).date() == datetodayplusone]
+    ttp1 = round(sum(temptodayplusone) / len(temptodayplusone) -273.1)
+
+
+    #today plus 2 temp
+    datetodayplustwo = today_date + timedelta(days=2)
+
+    temptodayplustwo = [forecast['main']['temp'] for forecast in weather_list
+                        if datetime.fromtimestamp(forecast['dt']).date() == datetodayplustwo]
+    ttp2 = round(sum(temptodayplustwo) / len(temptodayplustwo) -273.1)
+
+    # today plus 3 temp
+    datetodayplusthree = today_date + timedelta(days=3)
+
+    temptodayplusthree = [forecast['main']['temp'] for forecast in weather_list
+                        if datetime.fromtimestamp(forecast['dt']).date() == datetodayplusthree]
+    ttp3 = round(sum(temptodayplusthree) / len(temptodayplusthree) - 273.1)
+
+    # today plus 4 temp
+    datetodayplusfour = today_date + timedelta(days=4)
+
+    temptodayplusfour = [forecast['main']['temp'] for forecast in weather_list
+                        if datetime.fromtimestamp(forecast['dt']).date() == datetodayplusfour]
+    ttp4 = round(sum(temptodayplusfour) / len(temptodayplusfour) - 273.1)
+
+
+    temptodayplustwo = [forecast['main']['temp'] for forecast in weather_list
+                        if datetime.fromtimestamp(forecast['dt']).date() == datetodayplustwo]
+    ttp2 = round(sum(temptodayplustwo) / len(temptodayplustwo) - 273.1)
+
+    print(temptodayplusone)
+    return render_template('results.html', ttp1=ttp1, ttp2=ttp2, ttp3=ttp3, ttp4=ttp4, today_date=today_date, description=description, location=location,
                            timezone=timezone, timestamp=timestamp, temp_c=temp_c, wind_speed=wind_speed, icon=icon,
-                           country=country, date=date, temp_tommorow=temp_tommorow)
+                           country=country, date=date)
 
 
 if __name__ == '__main__':
