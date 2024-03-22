@@ -50,7 +50,7 @@ def results():
                         if datetime.fromtimestamp(forecast['dt']).date() == datetodayplustwo]
     ttp2 = round(sum(temptodayplustwo) / len(temptodayplustwo) -273.1)
 
-    # today plus 3 temp
+    # today plus 3 temperature
     datetodayplusthree = today_date + timedelta(days=3)
 
     temptodayplusthree = [forecast['main']['temp'] for forecast in weather_list
